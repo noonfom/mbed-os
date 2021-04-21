@@ -522,7 +522,7 @@ const char *to_string(const UUID& uuid)
     static constexpr const char *HEX = "0123456789ABCDEF";
     static constexpr const size_t HYPHENS_DELIMITER_COUNT = 4;
 
-    static char string_buffer[ROW_COUNT][UUID::LENGTH_OF_LONG_UUID + HYPHENS_DELIMITER_COUNT];
+    static char string_buffer[ROW_COUNT][2*UUID::LENGTH_OF_LONG_UUID + HYPHENS_DELIMITER_COUNT + 1];
     static uint8_t idx = 0;
 
     ++idx;
