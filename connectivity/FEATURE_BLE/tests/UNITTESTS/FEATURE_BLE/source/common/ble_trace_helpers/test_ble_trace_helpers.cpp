@@ -22,22 +22,14 @@
 
 TEST(to_string, UUID)
 {
-    static constexpr const size_t HYPHENS_DELIMITER_COUNT    = 4;
-    static constexpr const size_t LENGTH_OF_LONG_UUID_STRING = \
-            2 * UUID::LENGTH_OF_LONG_UUID + HYPHENS_DELIMITER_COUNT + 1;
+    static constexpr const char UUID_STRINGS[][sizeof "AB581451-AC37-462D-A54E-DB48C5A55EA3"] = {
+            "AB581451-AC37-462D-A54E-DB48C5A55EA3",
+            "221933EE-73EE-4765-9CD6-CC4ADB018113",
+            "A1B23DA3-85E3-4A8A-AC3D-B2D70B68B275",
+            "6318EFB9-CFCC-48CE-97BF-CD3EF34DC528"
+    };
 
-    static constexpr const char *STRING_UUID_0  = "53880000-65FD-4651-BA8E-91527F06C887";
-    static constexpr const char *STRING_UUID_1  = "53880001-65FD-4651-BA8E-91527F06C887";
-    static constexpr const char *STRING_UUID_2  = "53880002-65FD-4651-BA8E-91527F06C887";
-    static constexpr const char *STRING_UUID_3  = "53880003-65FD-4651-BA8E-91527F06C887";
-
-    const UUID UUID_0 = UUID(STRING_UUID_0);
-    const UUID UUID_1 = UUID(STRING_UUID_1);
-    const UUID UUID_2 = UUID(STRING_UUID_2);
-    const UUID UUID_3 = UUID(STRING_UUID_3);
-
-    EXPECT_TRUE(0 == std::memcmp(ble::to_string(UUID_0), STRING_UUID_0, LENGTH_OF_LONG_UUID_STRING));
-    EXPECT_TRUE(0 == std::memcmp(ble::to_string(UUID_1), STRING_UUID_1, LENGTH_OF_LONG_UUID_STRING));
-    EXPECT_TRUE(0 == std::memcmp(ble::to_string(UUID_2), STRING_UUID_2, LENGTH_OF_LONG_UUID_STRING));
-    EXPECT_TRUE(0 == std::memcmp(ble::to_string(UUID_3), STRING_UUID_3, LENGTH_OF_LONG_UUID_STRING));
+    for (auto &uuid_string : UUID_STRINGS) {
+        ASSERT_STREQ(uuid_string, ble::to_string(UUID(uuid_string)));
+    }
 }
